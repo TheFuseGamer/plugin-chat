@@ -1,0 +1,35 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8547AE31-163F-4AA8-87C9-79ECF74BFE90}"
+	ProjectSection(SolutionItems) = preProject
+		nfive.yml = nfive.yml
+	EndProjectSection
+EndProject
+Project("{164F2359-7966-49F8-815D-B43A0144F6D3}") = "Chat.Client", "Chat.Client\Chat.Client.csproj", "{03826D17-CC70-414D-81A3-3AEC9DCECCAD}"
+EndProject
+Project("{164F2359-7966-49F8-815D-B43A0144F6D3}") = "Chat.Server", "Chat.Server\Chat.Server.csproj", "{51864891-4F28-4DC4-A028-9D51742B6543}"
+EndProject
+Project("{164F2359-7966-49F8-815D-B43A0144F6D3}") = "Chat.Shared", "Chat.Shared\Chat.Shared.csproj", "{56C3D4FF-D883-43EE-BE49-853152C6D4EE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{03826D17-CC70-414D-81A3-3AEC9DCECCAD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03826D17-CC70-414D-81A3-3AEC9DCECCAD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03826D17-CC70-414D-81A3-3AEC9DCECCAD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03826D17-CC70-414D-81A3-3AEC9DCECCAD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51864891-4F28-4DC4-A028-9D51742B6543}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51864891-4F28-4DC4-A028-9D51742B6543}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51864891-4F28-4DC4-A028-9D51742B6543}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51864891-4F28-4DC4-A028-9D51742B6543}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56C3D4FF-D883-43EE-BE49-853152C6D4EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56C3D4FF-D883-43EE-BE49-853152C6D4EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56C3D4FF-D883-43EE-BE49-853152C6D4EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56C3D4FF-D883-43EE-BE49-853152C6D4EE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,17 @@
+name: NFive/plugin-chat
+version: 1.0.0
+description: Chat
+author: NFive
+license: LGPL
+server:
+  main:
+    - NFive.Chat.Server
+  include:
+    - NFive.Chat.Shared
+client:
+  main:
+    - NFive.Chat.Client
+  include:
+    - NFive.Chat.Shared
+  files:
+    - Overlays/ChatOverlay.html

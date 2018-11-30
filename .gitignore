@@ -1,0 +1,8 @@
+plugins/
+.vs/
+bin/
+obj/
+packages/
+Overlays/
+*.user
+*.dll
