@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<html lang="en-US">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js" integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
+
+	<style type="text/css">
+		* {
+			font-family: 'Lato', sans-serif;
+			margin: 0;
+			padding: 0;
+			outline: none;
+			box-sizing: border-box;
+			font-size: 1.5vh;
+			/* -webkit-text-fill-color: white;
+			-webkit-text-stroke: 1px black;
+			paint-order: stroke fill; */
+			text-shadow:
+				-1px -1px 0 #000,
+				1px -1px 0 #000,
+				-1px 1px 0 #000,
+				1px 1px 0 #000;
+		}
+
+		main {
+			width: 33vw;
+			height: 30vh;
+			max-width: 800px;
+			padding: 1vw;
+			line-height: 1.1rem;
+			color: white;
+			animation-duration: 2s;
+		}
+
+		#messages {
+			position: relative;
+			height: 85%;
+			overflow-x: hidden;
+			overflow-y: scroll;
+		}
+
+		#messages article {
+			margin-bottom: 0.25rem;
+		}
+
+		#input {
+			margin-top: 1vh;
+		}
+
+		#input span {
+			position: absolute;
+			top: 2vh;
+			left: 2vw;
+		}
+
+		#input textarea {
+			display: block;
+			color: white;
+			width: 100%;
+			height: 100%;
+			border-width: 0;
+			overflow: hidden !important;
+			text-overflow: ellipsis;
+			resize: none;
+			background-color: transparent;
+			max-height: 33vh;
+		}
+
+		::-webkit-scrollbar {
+			display: none;
+		}
+	</style>
+
+	<script>
+		$(() => {
+			const $window = $('main');
+			const $input = $('#input');
+			const $textarea = $('textarea');
+			let timer = null;
+
+			const show = (input, timeout = false) => {
+				clearTimeout(timer);
+
+				if (input) $input.show();
+				$window.show();
+				$textarea.focus();
+
+				if (timeout) {
+					timer = setTimeout(hide, 5000);
+				}
+			};
+
+			const hide = () => {
+				clearTimeout(timer);
+
+				nfive.send('focus', false);
+
+				$window.hide();
+				$input.hide();
+			};
+
+			$window.hide();
+
+			nfive.show();
+
+			autosize($textarea);
+
+			nfive.on('open', () => {
+				show(true);
+			});
+
+			$(document).keydown(function(e) {
+				switch (e.key) {
+					case 'Tab':
+						e.preventDefault();
+						break;
+					case 'Escape':
+						hide();
+						break;
+				}
+			});
+
+			nfive.on('message', function(message) {
+				$('#messages').append($('<article>').text(message));
+				$('#messages')[0].scrollTop = $('#messages')[0].scrollHeight;
+
+				show(false, true);
+			});
+
+			$textarea.keydown((e) => {
+				if (e.key != 'Enter') return;
+
+				nfive.send('message', $(e.currentTarget).val());
+				$(e.currentTarget).val('');
+
+				$input.hide();
+				nfive.send('focus', false);
+			});
+
+			$textarea.blur(() => {
+				$textarea.focus();
+			});
+		});
+	</script>
+</head>
+
+<body>
+	<main>
+		<section id="messages">
+			<article>Welcome to the server</article>
+		</section>
+
+		<section id="input">
+			<textarea rows="1" autofocus spellcheck="false"></textarea>
+		</section>
+	</main>
+</body>
+</html>
