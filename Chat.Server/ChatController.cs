@@ -1,6 +1,4 @@
-using System.Linq;
 using System.Threading.Tasks;
-using CitizenFX.Core;
 using JetBrains.Annotations;
 using NFive.Chat.Shared;
 using NFive.SDK.Core.Diagnostics;
