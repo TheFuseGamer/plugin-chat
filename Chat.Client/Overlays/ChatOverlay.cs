@@ -30,8 +30,8 @@ namespace NFive.Chat.Client.Overlays
 
 		public ChatOverlay(OverlayManager manager) : base("ChatOverlay.html", manager)
 		{
-			this.Attach("focus", (focus, callback) => this.Focus?.Invoke(this, new FocusEventArgs(this, focus)));
-			this.Attach("message", (message, callback) => this.Message?.Invoke(this, new MessageEventArgs(this, message)));
+			Attach("focus", (focus, callback) => this.Focus?.Invoke(this, new FocusEventArgs(this, focus)));
+			Attach("message", (message, callback) => this.Message?.Invoke(this, new MessageEventArgs(this, message)));
 		}
 	}
 }

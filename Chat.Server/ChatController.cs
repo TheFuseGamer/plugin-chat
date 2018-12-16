@@ -1,4 +1,3 @@
-using System.Threading.Tasks;
 using JetBrains.Annotations;
 using NFive.Chat.Shared;
 using NFive.SDK.Core.Diagnostics;
