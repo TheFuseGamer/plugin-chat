@@ -12,6 +12,7 @@ using System;
 using System.Threading.Tasks;
 using NFive.Chat.Shared;
 using NFive.Chat.Shared.Models;
+using NFive.SDK.Client.Commands;
 
 namespace NFive.Chat.Client
 {
@@ -20,7 +21,7 @@ namespace NFive.Chat.Client
 	{
 		private ChatOverlay overlay;
 
-		public ChatService(ILogger logger, ITickManager ticks, IEventManager events, IRpcHandler rpc, OverlayManager overlay, User user) : base(logger, ticks, events, rpc, overlay, user) { }
+		public ChatService(ILogger logger, ITickManager ticks, IEventManager events, IRpcHandler rpc, ICommandManager commands, OverlayManager overlay, User user) : base(logger, ticks, events, rpc, commands, overlay, user) { }
 
 		public override Task Started()
 		{
