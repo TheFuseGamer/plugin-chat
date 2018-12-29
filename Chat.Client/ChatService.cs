@@ -57,20 +57,17 @@ namespace NFive.Chat.Client
 			this.Commands.Register("test3", (IEnumerable<string> a) => this.Logger.Debug($"test3: {string.Join("|", a)}"));
 			//this.Commands.Register<TestArgs>("test4", a => this.Logger.Debug($"test4: {a.Test}"));
 
-			this.Ticks.Attach(Tick);
+			this.Ticks.Attach(new Action(Tick));
 
 			return base.Started();
 		}
 
-		private Task Tick()
+		private void Tick()
 		{
-			if (Game.IsControlJustPressed(2, Control.MpTextChatAll)) // T
-			{
-				API.SetNuiFocus(true, false);
-				this.overlay.Manager.Send("open");
-			}
+			if (!Game.IsControlJustPressed(2, Control.MpTextChatAll)) return; // T
 
-			return Task.FromResult(0);
+			API.SetNuiFocus(true, false);
+			this.overlay.Manager.Send("open");
 		}
 	}
 }
