@@ -10,9 +10,9 @@ using NFive.SDK.Core.Diagnostics;
 using NFive.SDK.Core.Models.Player;
 using System;
 using System.Threading.Tasks;
-using NFive.Chat.Shared;
-using NFive.Chat.Shared.Models;
 using NFive.SDK.Client.Commands;
+using NFive.SDK.Core.Chat;
+using NFive.SDK.Core.Rpc;
 
 namespace NFive.Chat.Client
 {
@@ -41,10 +41,10 @@ namespace NFive.Chat.Client
 				{
 					Content = a.Message
 				};
-				this.Rpc.Event(ChatEvents.Message).Trigger(message);
+				this.Rpc.Event(RpcEvents.ChatSendMessage).Trigger(message);
 			};
 
-			this.Rpc.Event(ChatEvents.Message).On(new Action<IRpcEvent, ChatMessage>((e, message) =>
+			this.Rpc.Event(RpcEvents.ChatSendMessage).On(new Action<IRpcEvent, ChatMessage>((e, message) =>
 			{
 				this.Logger.Debug($"Got message: {message.Content}");
 
