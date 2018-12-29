@@ -7,6 +7,8 @@
 	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/autosize.js/4.0.2/autosize.min.js" integrity="sha256-dW8u4dvEKDThJpWRwLgGugbARnA3O2wqBcVerlg9LMc=" crossorigin="anonymous"></script>
 
+	<title>NFive Chat</title>
+
 	<style type="text/css">
 		* {
 			font-family: 'Lato', sans-serif;
@@ -80,6 +82,15 @@
 			const $input = $('#input');
 			const $textarea = $('textarea');
 			let timer = null;
+			
+			const hide = () => {
+				clearTimeout(timer);
+
+				nfive.send('focus', false);
+
+				$window.hide();
+				$input.hide();
+			};
 
 			const show = (input, timeout = false) => {
 				clearTimeout(timer);
@@ -91,15 +102,6 @@
 				if (timeout) {
 					timer = setTimeout(hide, 5000);
 				}
-			};
-
-			const hide = () => {
-				clearTimeout(timer);
-
-				nfive.send('focus', false);
-
-				$window.hide();
-				$input.hide();
 			};
 
 			$window.hide();
@@ -131,7 +133,7 @@
 			});
 
 			$textarea.keydown((e) => {
-				if (e.key != 'Enter') return;
+				if (e.key !== 'Enter') return;
 
 				nfive.send('message', $(e.currentTarget).val());
 				$(e.currentTarget).val('');
