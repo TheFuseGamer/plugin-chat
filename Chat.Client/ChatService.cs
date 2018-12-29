@@ -11,6 +11,7 @@ using NFive.SDK.Core.Models.Player;
 using System;
 using System.Threading.Tasks;
 using NFive.Chat.Shared;
+using NFive.Chat.Shared.Models;
 
 namespace NFive.Chat.Client
 {
@@ -35,16 +36,19 @@ namespace NFive.Chat.Client
 			this.overlay.Message += (s, a) =>
 			{
 				this.Logger.Debug($"Sending message: {a.Message}");
-
-				this.Rpc.Event(ChatEvents.Message).Trigger(a.Message);
+				var message = new ChatMessage
+				{
+					Content = a.Message
+				};
+				this.Rpc.Event(ChatEvents.Message).Trigger(message);
 			};
 
-			this.Rpc.Event(ChatEvents.Message).On(new Action<IRpcEvent, string>((e, message) =>
+			this.Rpc.Event(ChatEvents.Message).On(new Action<IRpcEvent, ChatMessage>((e, message) =>
 			{
-				this.Logger.Debug($"Got message: {message}");
+				this.Logger.Debug($"Got message: {message.Content}");
 
-				this.overlay.Manager.Send("message", message);
-			 }));
+				this.overlay.Manager.Send("message", message.Content);
+			}));
 
 			this.Ticks.Attach(Tick);
 

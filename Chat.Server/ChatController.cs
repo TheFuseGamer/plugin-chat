@@ -1,5 +1,6 @@
 using JetBrains.Annotations;
 using NFive.Chat.Shared;
+using NFive.Chat.Shared.Models;
 using NFive.SDK.Core.Diagnostics;
 using NFive.SDK.Server.Controllers;
 using NFive.SDK.Server.Events;
@@ -13,9 +14,9 @@ namespace NFive.Chat.Server
 	{
 		public ChatController(ILogger logger, IEventManager events, IRpcHandler rpc, IRconManager rcon, Configuration configuration) : base(logger, events, rpc, rcon, configuration)
 		{
-			this.Rpc.Event(ChatEvents.Message).On<string>((e, message) =>
+			this.Rpc.Event(ChatEvents.Message).On<ChatMessage>((e, message) =>
 			{
-				this.Logger.Debug($"Got message: {message}");
+				this.Logger.Debug($"Got message: {message.Content}");
 
 				this.Rpc.Event(ChatEvents.Message).Trigger(message);
 			});
