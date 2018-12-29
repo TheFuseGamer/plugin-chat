@@ -2,17 +2,18 @@ using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using JetBrains.Annotations;
 using NFive.Chat.Client.Overlays;
+using NFive.SDK.Client.Commands;
 using NFive.SDK.Client.Events;
 using NFive.SDK.Client.Interface;
 using NFive.SDK.Client.Rpc;
 using NFive.SDK.Client.Services;
+using NFive.SDK.Core.Chat;
 using NFive.SDK.Core.Diagnostics;
 using NFive.SDK.Core.Models.Player;
-using System;
-using System.Threading.Tasks;
-using NFive.SDK.Client.Commands;
-using NFive.SDK.Core.Chat;
 using NFive.SDK.Core.Rpc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace NFive.Chat.Client
 {
@@ -50,6 +51,11 @@ namespace NFive.Chat.Client
 
 				this.overlay.Manager.Send("message", message.Content);
 			}));
+
+			this.Commands.Register("test1", () => this.Logger.Debug("test1"));
+			this.Commands.Register("test2", (string s) => this.Logger.Debug($"test2: {s}"));
+			this.Commands.Register("test3", (IEnumerable<string> a) => this.Logger.Debug($"test3: {string.Join("|", a)}"));
+			//this.Commands.Register<TestArgs>("test4", a => this.Logger.Debug($"test4: {a.Test}"));
 
 			this.Ticks.Attach(Tick);
 
