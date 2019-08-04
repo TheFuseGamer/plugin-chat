@@ -5,11 +5,11 @@ using NFive.SDK.Client;
 [assembly: ClientPlugin(SDK.Version)]
 
 [assembly: AssemblyTitle("NFive Chat")]
-[assembly: AssemblyDescription("Chat")]
+[assembly: AssemblyDescription("Server chat")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("NFive")]
 [assembly: AssemblyProduct("NFive Chat Client Plugin")]
-[assembly: AssemblyCopyright("Copyright © NFive 2018")]
+[assembly: AssemblyCopyright("Copyright © NFive 2018-2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 [assembly: ComVisible(false)]
