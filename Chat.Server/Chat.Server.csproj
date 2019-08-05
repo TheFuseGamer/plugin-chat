@@ -82,6 +82,7 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\ColoredMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ChatController.cs" />
   </ItemGroup>

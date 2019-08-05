@@ -1,6 +1,7 @@
 using CitizenFX.Core;
 using CitizenFX.Core.Native;
 using JetBrains.Annotations;
+using NFive.Chat.Client.Models;
 using NFive.Chat.Client.Overlays;
 using NFive.Chat.Shared;
 using NFive.SDK.Client.Commands;
@@ -24,6 +25,8 @@ namespace NFive.Chat.Client
 		private Configuration config;
 		private ChatOverlay overlay;
 
+		private bool wait = false;
+
 		public ChatService(ILogger logger, ITickManager ticks, IEventManager events, IRpcHandler rpc, ICommandManager commands, OverlayManager overlay, User user) : base(logger, ticks, events, rpc, commands, overlay, user) { }
 
 		public override async Task Started()
@@ -39,9 +42,10 @@ namespace NFive.Chat.Client
 			// Create overlay
 			this.overlay = new ChatOverlay(this.OverlayManager);
 
-
-			this.overlay.Shown += (s) => this.wait = false;
-
+			this.overlay.Typing += (s, e) =>
+			{
+				this.wait = e.Typing;
+			};
 
 			// Send entered messages
 			this.overlay.Message += (s, a) => this.Rpc.Event(RpcEvents.ChatSendMessage).Trigger(new ChatMessage
@@ -51,21 +55,23 @@ namespace NFive.Chat.Client
 			});
 
 			// Listen for new messages
-			this.Rpc.Event(RpcEvents.ChatSendMessage).On(new Action<IRpcEvent, ChatMessage>((e, message) => this.overlay.AddMessage(message)));
+			this.Rpc.Event(RpcEvents.ChatSendMessage).On(new Action<IRpcEvent, ColoredMessage>((e, coloredMessage) => {
+				this.overlay.AddMessage(coloredMessage);
+				this.Logger.Debug(coloredMessage.ToString());
+			}));
 
 			// Attach a tick handler
 			this.Ticks.Attach(OnTick);
 		}
 
-		private bool wait = false;
-
 		private async Task OnTick()
 		{
-			if (!this.wait && Input.IsControlPressed(Control.MpTextChatAll)) this.overlay.Open(); // T
-
-			this.wait = true;
-
-			await Delay(0);
+			if (!this.wait && Input.IsControlJustReleased(Control.MpTextChatAll)) // T
+			{
+				this.overlay.Open();
+				this.wait = true;
+			}
+			await Task.FromResult(0);
 		}
 	}
 }

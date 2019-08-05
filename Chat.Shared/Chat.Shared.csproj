@@ -54,6 +54,7 @@
   <ItemGroup>
     <Compile Include="ChatEvents.cs" />
     <Compile Include="Configuration.cs" />
+    <Compile Include="Models\IColoredMessage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

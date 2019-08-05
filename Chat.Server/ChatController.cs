@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using NFive.Chat.Server.Models;
 using NFive.Chat.Shared;
 using NFive.SDK.Core.Chat;
 using NFive.SDK.Core.Diagnostics;
@@ -24,9 +25,12 @@ namespace NFive.Chat.Server
 			// Send chat messages
 			this.Rpc.Event(RpcEvents.ChatSendMessage).On<ChatMessage>((e, message) =>
 			{
-				this.Logger.Debug($"Sending message: {message.Content}");
+				this.Logger.Debug($"Colorizing message: {message.Content}");
+				ColoredMessage coloredMessage = new ColoredMessage(message);
 
-				this.Rpc.Event(RpcEvents.ChatSendMessage).Trigger(message);
+				this.Logger.Debug($"Colored message: {coloredMessage.ToString()}");
+
+				this.Rpc.Event(RpcEvents.ChatSendMessage).Trigger(coloredMessage);
 			});
 
 			return base.Started();
